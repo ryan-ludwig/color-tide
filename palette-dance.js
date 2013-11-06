@@ -31,6 +31,12 @@ $(function() {
 		lover = loverHash;
 	}
 
+	$(window).on('hashchange',function(){ 
+	    lover = window.location.hash.substr(1);
+	    getLoverData(lover);
+	    buildInfoWindow();
+	});	
+
 	function init() {
 		// build placeholders the max amount of colors possible
 		for (var i = 0; i<maxPalettes*5; i++) {
@@ -39,8 +45,8 @@ $(function() {
 		$colorHolders = $paletteContainer.find('div.color');
 		
 		getLoverData(lover);
+		buildInfoWindow();
 		randomizePalettes();
-		console.log(loverHash);
 	};
 	init();
 
@@ -111,13 +117,15 @@ $(function() {
 
 
 	// UI stuff
-	$('#lover').append(lover).attr('href', 'http://www.colourlovers.com/lover/'+lover+'/');
+	function buildInfoWindow() {
+		$('#lover').html(lover).attr('href', 'http://www.colourlovers.com/lover/'+lover+'/');
+	}
+
 	$('#info-link').on('click', function(e) {
 		$('#config').toggleClass('is-open');
 		e.preventDefault();
 	});
 
-	
 	$('#full-screen-toggle').on('click', function() {
 		toggleFullScreen();
 	});
@@ -125,21 +133,21 @@ $(function() {
 	function toggleFullScreen() {
 		if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
 		 	(!document.mozFullScreen && !document.webkitIsFullScreen)) {
-		if (document.documentElement.requestFullScreen) {  
-			document.documentElement.requestFullScreen();  
-		} else if (document.documentElement.mozRequestFullScreen) {  
-			document.documentElement.mozRequestFullScreen();  
-		} else if (document.documentElement.webkitRequestFullScreen) {  
-			document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-		}  
+			if (document.documentElement.requestFullScreen) {  
+				document.documentElement.requestFullScreen();  
+			} else if (document.documentElement.mozRequestFullScreen) {  
+				document.documentElement.mozRequestFullScreen();  
+			} else if (document.documentElement.webkitRequestFullScreen) {  
+				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+			}  
 	  } else {  
-		if (document.cancelFullScreen) {  
-			document.cancelFullScreen();  
-		} else if (document.mozCancelFullScreen) {  
-			document.mozCancelFullScreen();  
-		} else if (document.webkitCancelFullScreen) {  
-			document.webkitCancelFullScreen();  
-		}  
+			if (document.cancelFullScreen) {  
+				document.cancelFullScreen();  
+			} else if (document.mozCancelFullScreen) {  
+				document.mozCancelFullScreen();  
+			} else if (document.webkitCancelFullScreen) {  
+				document.webkitCancelFullScreen();  
+			}  
 	  }  
 	} 
 

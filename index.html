@@ -41,9 +41,18 @@
 			background: #000;
 			color: #fff;
 			z-index: 3;
+			max-width: 25px;
+
+			-webkit-transition: max-width 1s ease-in-out;
+			-moz-transition: max-width 1s ease-in-out;
+			transition: max-width 1s ease-in-out;
 		}
 
-		#config a {
+		#config.is-open {
+			max-width: 325px;
+		}
+
+		#info-link {
 			display: block;			
 			margin: 5px;
 			width: 15px;
@@ -61,16 +70,39 @@
 			transition: background 300ms;
 		}
 
-		#config a:hover {
+		#info-link:hover {
 			background: #fff;
 		}
 
+		#more-information {
+			color: #ccc;
+			width: 300px;
+			margin: 50px;
+			font-family: sans-serif;
+		}
+
+		#more-information a {
+			color: #fff;
+		}
+
+		h1 {
+			font-weight: 100;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="palette_container"></div>
-	<div id="config"><a href="https://github.com/ryan-ludwig/palette-dance" title="information">i</a></div>
+	<div id="config">
+		<a href="https://github.com/ryan-ludwig/palette-dance" title="information" id="info-link">i</a>
+		<div id="more-information">
+			<h1>Palette Dance (working title)</h1>
+			<p>Palettes by <a id="lover"></a></p>
+			<p>Data from the <a href="http://www.colourlovers.com/api/">Colourlovers API</a></p>
+			<p>Project on <a href="https://github.com/ryan-ludwig/palette-dance">GitHub</a></p>
+			<p><a href="#" id="full-screen-toggle">Toggle Fullscreen</a></p>
+		</div>
+	</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" ></script>
 	<script src="palette-dance.js"></script>

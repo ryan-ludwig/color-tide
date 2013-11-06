@@ -1,5 +1,10 @@
 $(function() {   
 
+	// Safari looks terrible because of sub-pixel rounding problems.  Appologize for them.
+	if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+		alert('Very sorry, but this demo looks terrible in Safari.  Works best in Chrome or Firefox.');
+	}
+
 	var $palette_container = $('#palette_container'),
 			$color_holders,
 			maxPalettes = 12,
@@ -18,7 +23,6 @@ $(function() {
 			// lover = 'dammar', //no license
 			// lover = 'cstallions', //no license
 			// lover = 'LUCIFUGE ROFOCALE', //no license
-
 			duration = 3800,
 			loverMaxPalettes = 100;
 
@@ -93,8 +97,44 @@ $(function() {
 		getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
 	}
 
-
+	// randomize the palettes per the duration
 	window.setInterval(randomizePalettes, duration);
 
+
+
+
+
+	// UI stuff
+	$('#lover').append(lover).attr('href', 'http://www.colourlovers.com/lover/'+lover+'/');
+	$('#info-link').on('click', function(e) {
+		$('#config').toggleClass('is-open');
+		e.preventDefault();
+	});
+
+	
+	$('#full-screen-toggle').on('click', function() {
+		toggleFullScreen();
+	});
+
+	function toggleFullScreen() {
+		if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+		 	(!document.mozFullScreen && !document.webkitIsFullScreen)) {
+		if (document.documentElement.requestFullScreen) {  
+			document.documentElement.requestFullScreen();  
+		} else if (document.documentElement.mozRequestFullScreen) {  
+			document.documentElement.mozRequestFullScreen();  
+		} else if (document.documentElement.webkitRequestFullScreen) {  
+			document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+		}  
+	  } else {  
+		if (document.cancelFullScreen) {  
+			document.cancelFullScreen();  
+		} else if (document.mozCancelFullScreen) {  
+			document.mozCancelFullScreen();  
+		} else if (document.webkitCancelFullScreen) {  
+			document.webkitCancelFullScreen();  
+		}  
+	  }  
+	} 
 
 });

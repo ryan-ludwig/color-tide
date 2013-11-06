@@ -5,8 +5,8 @@ $(function() {
 		alert('Very sorry, but this demo looks terrible in Safari.  Works best in Chrome or Firefox.');
 	}
 
-	var $palette_container = $('#palette_container'),
-			$color_holders,
+	var $paletteContainer = $('#palette_container'),
+			$colorHolders,
 			maxPalettes = 12,
 			// lover = 'sinar',
 			// lover = 'tvr',	
@@ -25,16 +25,22 @@ $(function() {
 			// lover = 'LUCIFUGE ROFOCALE', //no license
 			duration = 3800,
 			loverMaxPalettes = 100;
+			loverHash = window.location.hash.substr(1);
+
+	if (loverHash !== '') {
+		lover = loverHash;
+	}
 
 	function init() {
 		// build placeholders the max amount of colors possible
 		for (var i = 0; i<maxPalettes*5; i++) {
-			$palette_container.append('<div class="color"></div>');
+			$paletteContainer.append('<div class="color"></div>');
 		};
-		$color_holders = $palette_container.find('div.color');
+		$colorHolders = $paletteContainer.find('div.color');
 		
 		getLoverData(lover);
 		randomizePalettes();
+		console.log(loverHash);
 	};
 	init();
 
@@ -64,7 +70,7 @@ $(function() {
 	function drawPalettes(data, currentRandomNumber) {
 		// a little counter
 		var currently = 0; 
-		$color_holders.css('width', '0');
+		$colorHolders.css('width', '0');
 
 		$.each(data, function(i, palette){
 
@@ -72,7 +78,7 @@ $(function() {
 			var widths = palette.colorWidths;
 
 			for (var j = 0; j < colors.length; j++) {
-				$color_holders.eq(currently).css({
+				$colorHolders.eq(currently).css({
 					'background': '#'+colors[j],
 					'width': widths[j] * (100/currentRandomNumber)+'%'
 				});

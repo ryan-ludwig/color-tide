@@ -5,9 +5,10 @@ $(function() {
 		alert('Very sorry, but this demo looks terrible in Safari.  Works best in Chrome or Firefox.');
 	}
 
-	var $paletteContainer = $('#palette_container'),
+	var	$paletteContainer = $('#palette_container'),
 			$colorHolders,
-			maxPalettes = 12,
+			maxPalettes = 12, // the max number of palettes on screen at once
+			duration = 3800,			
 			// lover = 'sinar',
 			// lover = 'tvr',	
 			// lover = 'mravka',
@@ -23,8 +24,7 @@ $(function() {
 			// lover = 'dammar', //no license
 			// lover = 'cstallions', //no license
 			// lover = 'LUCIFUGE ROFOCALE', //no license
-			duration = 3800,
-			loverMaxPalettes = 100;
+			loverMaxPalettes = 10; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
 			loverHash = window.location.hash.substr(1);
 
 	if (loverHash !== '') {
@@ -38,7 +38,7 @@ $(function() {
 	});	
 
 	function init() {
-		// build placeholders the max amount of colors possible
+		// build placeholders for the max amount of colors possible
 		for (var i = 0; i<maxPalettes*5; i++) {
 			$paletteContainer.append('<div class="color"></div>');
 		};
@@ -50,7 +50,7 @@ $(function() {
 	};
 	init();
 
-	// calls the CL API, and sets the loverMaxPalettes variable higher in the scope. Only runs once.
+	// call the CL API, sets the loverMaxPalettes variable.
 	function getLoverData(lover) {
 		$.ajax({
 			url: 'http://www.colourlovers.com/api/lover/'+lover+'/?format=json&jsonCallback=?',
@@ -140,7 +140,7 @@ $(function() {
 			} else if (document.documentElement.webkitRequestFullScreen) {  
 				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
 			}  
-	  } else {  
+	}	else {  
 			if (document.cancelFullScreen) {  
 				document.cancelFullScreen();  
 			} else if (document.mozCancelFullScreen) {  

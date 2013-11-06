@@ -3,6 +3,13 @@
 <head>
 	<title>Palette Dance</title>
 	<style>
+
+		html, body {
+			margin: 0;
+			padding: 0;
+			background: #000;
+		}
+
 		.palette, #palette_container {
 			width: 100%;
 			height: 100%;
@@ -39,26 +46,38 @@
 	$(function() {   
 
 		var $palette_container = $('#palette_container'),
-				maxPalettes = 99,
-				// lover = 'sinar',
-				// lover = 'tvr',
-				// lover = 'cstallions',				
-				// lover = 'dammar',
+				maxPalettes = 20,
+				lover = 'sinar',
+				// lover = 'tvr',	
 				// lover = 'mravka',
 				// lover = 'sero*',
 				// lover = 'GlueStudio',
-				lover = 'ちょわ もさ',
-				duration = 2000;
+				// lover = 'ちょわ もさ',
+				duration = 2000,
+				loverMaxPalettes = 100;
 
 		function init() {
 			// build placeholders the max amount of colors possible
 			for (var i = 0; i<maxPalettes*5; i++) {
 				$palette_container.append('<div class="color"></div>');
 			};
+			getLoverData(lover);
 			randomizePalettes();
 		};
 		init();
 		var $color_holders = $palette_container.find('div.color');
+
+		// calls the CL API, and sets the loverMaxPalettes variable higher in the scope. Only runs once.
+		function getLoverData(lover) {
+			$.ajax({
+				url: 'http://www.colourlovers.com/api/lover/'+lover+'/?format=json&jsonCallback=?',
+				dataType: 'jsonp',
+				success: function(loverdata){
+					console.log(loverdata);
+					loverMaxPalettes = loverdata[0].numPalettes;
+				}
+			});
+		}
 
 		function getPalettes(requestUrl, currentRandomNumber) {
 			$.ajax({
@@ -97,18 +116,24 @@
 		}
 
 		function randomizePalettes() {
+			// create a random number between 1 and the maximum number of palettes. This will be used to determine the number of palettes shown on this request.
 			var currentRandomNumber = getRandomInteger(1,maxPalettes);
-			getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,1000)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
+
+			// determine the maximum offset we can have based on the total number of palettes the lover has made. This will be used to set a random number for the offset on this request.
+			var maxOffset = Math.floor(loverMaxPalettes / currentRandomNumber) - 1;
+
+			// make the API request
+			getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
 		}
 
 		// ramdonized settimeout - http://stackoverflow.com/questions/6962658/randomize-setinterval-how-to-rewrite-same-random-after-random-interval
 		(function loop() {
 			// minmimum of half a second, max of 4 seconds
-			var rand = getRandomInteger(500,4000);
+			// var rand = getRandomInteger(500,4000);
 			setTimeout(function() {
 				randomizePalettes();
 				loop();  
-			}, 2000);
+			}, 1800);
 		}());
 
 	});

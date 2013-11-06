@@ -9,17 +9,17 @@ $(function() {
 			// lover = 'sero*',
 			// lover = 'GlueStudio',
 			// lover = 'ちょわ もさ',
-			// lover = 'Dimitris',
+			lover = 'Dimitris',
 			// lover = 'yray',
 			// lover = 'isotope.151',
 			// lover = 'Julee',
-			lover = 'tsukasaokazaki',
+			// lover = 'tsukasaokazaki',
 			// lover = 'yeunique',
 			// lover = 'dammar', //no license
 			// lover = 'cstallions', //no license
 			// lover = 'LUCIFUGE ROFOCALE', //no license
 
-			duration = 4800,
+			duration = 3800,
 			loverMaxPalettes = 100;
 
 	function init() {

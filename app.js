@@ -11,7 +11,7 @@ $(function() {
 			maxPalettes = 12, // the max number of palettes on screen at once
 			duration = 3800,			
 			lover = 'sinar',
-			loverMaxPalettes = 10; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
+			loverMaxPalettes = 100; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
 			loverHash = window.location.hash.substr(1);
 
 	if (loverHash !== '') {

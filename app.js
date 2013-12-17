@@ -83,8 +83,6 @@ $(function() {
 		getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
 	}
 
-	// randomize the palettes per the duration
-	window.setInterval(randomizePalettes, duration);
 
 
 
@@ -135,4 +133,7 @@ $(function() {
 		randomizePalettes();
 	};
 	init();
+
+  // keep bringing in random the palettes per the duration
+  window.setInterval(randomizePalettes, duration);	
 });

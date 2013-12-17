@@ -88,10 +88,7 @@ $(function() {
 
 		// make the API request
 		getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
-		// getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&keywords=multiblend&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
-
 	}
-
 
 
 	// UI stuff
@@ -130,7 +127,6 @@ $(function() {
 	} 
 
 
-
 	function init() {
 		// build placeholders for the max amount of colors possible
 		for (var i = 0; i<maxPalettes*5; i++) {
@@ -138,14 +134,14 @@ $(function() {
 		};
 		$colorHolders = $paletteContainer.find('div.color');
 		
-		//getLoverData(lover);
+
+		getLoverData(lover);
 		buildInfoWindow();
 		randomizePalettes();
 	};
 	init();
 
-	// keep bringing in random the palettes per the duration
-	window.setInterval(randomizePalettes, duration);
-
+  // keep bringing in random the palettes per the duration
+  window.setInterval(randomizePalettes, duration);	
 
 });

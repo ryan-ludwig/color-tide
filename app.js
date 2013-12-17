@@ -9,21 +9,7 @@ $(function() {
 			$colorHolders,
 			maxPalettes = 12, // the max number of palettes on screen at once
 			duration = 3800,			
-			// lover = 'sinar',
-			// lover = 'tvr',	
-			// lover = 'mravka',
-			// lover = 'sero*',
-			// lover = 'GlueStudio',
-			// lover = 'ちょわ もさ',
-			lover = 'Dimitris',
-			// lover = 'yray',
-			// lover = 'isotope.151',
-			// lover = 'Julee',
-			// lover = 'tsukasaokazaki',
-			// lover = 'yeunique',
-			// lover = 'dammar', //no license
-			// lover = 'cstallions', //no license
-			// lover = 'LUCIFUGE ROFOCALE', //no license
+			lover = 'sinar',
 			loverMaxPalettes = 10; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
 			loverHash = window.location.hash.substr(1);
 
@@ -36,19 +22,6 @@ $(function() {
 	    getLoverData(lover);
 	    buildInfoWindow();
 	});	
-
-	function init() {
-		// build placeholders for the max amount of colors possible
-		for (var i = 0; i<maxPalettes*5; i++) {
-			$paletteContainer.append('<div class="color"></div>');
-		};
-		$colorHolders = $paletteContainer.find('div.color');
-		
-		getLoverData(lover);
-		buildInfoWindow();
-		randomizePalettes();
-	};
-	init();
 
 	// call the CL API, sets the loverMaxPalettes variable.
 	function getLoverData(lover) {
@@ -114,8 +87,6 @@ $(function() {
 
 
 
-
-
 	// UI stuff
 	function buildInfoWindow() {
 		$('#lover').html(lover).attr('href', 'http://www.colourlovers.com/lover/'+lover+'/');
@@ -151,4 +122,16 @@ $(function() {
 	  }  
 	} 
 
+	function init() {
+		// build placeholders for the max amount of colors possible
+		for (var i = 0; i<maxPalettes*5; i++) {
+			$paletteContainer.append('<div class="color"></div>');
+		};
+		$colorHolders = $paletteContainer.find('div.color');
+		
+		getLoverData(lover);
+		buildInfoWindow();
+		randomizePalettes();
+	};
+	init();
 });

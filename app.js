@@ -7,6 +7,7 @@ $(function() {
 
 	var	$paletteContainer = $('#palette_container'),
 			$colorHolders,
+			minPalettes = 1, // the min number of palettes on screen at once
 			maxPalettes = 12, // the max number of palettes on screen at once
 			duration = 3800,			
 			lover = 'sinar',
@@ -73,7 +74,7 @@ $(function() {
 
 	function randomizePalettes() {
 		// create a random number between 1 and the maximum number of palettes. This will be used to determine the number of palettes shown on this request.
-		var currentRandomNumber = getRandomInteger(1,maxPalettes);
+		var currentRandomNumber = getRandomInteger(minPalettes,maxPalettes);
 
 		// determine the maximum offset we can have based on the total number of palettes the lover has made. This will be used to set a random number for the offset on this request.
 		var maxOffset = Math.floor(loverMaxPalettes / currentRandomNumber) - 1;

@@ -1,30 +1,17 @@
 $(function() {   
 
-	// Safari looks terrible because of sub-pixel rounding problems.  Appologize for them.
+	// Safari looks terrible because of sub-pixel rounding problems.  Apologize for them.
 	if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
 		alert('Very sorry, but this demo looks terrible in Safari.  Works best in Chrome or Firefox.');
 	}
 
 	var	$paletteContainer = $('#palette_container'),
 			$colorHolders,
-			maxPalettes = 12, // the max number of palettes on screen at once
-			duration = 3800,			
-			// lover = 'sinar',
-			// lover = 'tvr',	
-			// lover = 'mravka',
-			// lover = 'sero*',
-			// lover = 'GlueStudio',
-			// lover = 'ちょわ もさ',
-			lover = 'Dimitris',
-			// lover = 'yray',
-			// lover = 'isotope.151',
-			// lover = 'Julee',
-			// lover = 'tsukasaokazaki',
-			// lover = 'yeunique',
-			// lover = 'dammar', //no license
-			// lover = 'cstallions', //no license
-			// lover = 'LUCIFUGE ROFOCALE', //no license
-			loverMaxPalettes = 10; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
+			minPalettes = 1,
+			maxPalettes = 16, // the max number of palettes on screen at once
+			duration = 3800,
+			lover = 'steph6',
+			loverMaxPalettes = 1000; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
 			loverHash = window.location.hash.substr(1);
 
 	if (loverHash !== '') {
@@ -36,19 +23,6 @@ $(function() {
 	    getLoverData(lover);
 	    buildInfoWindow();
 	});	
-
-	function init() {
-		// build placeholders for the max amount of colors possible
-		for (var i = 0; i<maxPalettes*5; i++) {
-			$paletteContainer.append('<div class="color"></div>');
-		};
-		$colorHolders = $paletteContainer.find('div.color');
-		
-		getLoverData(lover);
-		buildInfoWindow();
-		randomizePalettes();
-	};
-	init();
 
 	// call the CL API, sets the loverMaxPalettes variable.
 	function getLoverData(lover) {
@@ -78,9 +52,16 @@ $(function() {
 		var currently = 0; 
 		$colorHolders.css('width', '0');
 
+		// reverse the order of the results object, because of the order people do blend palettes on CL.
+		// $(data).toArray().reverse();
+
 		$.each(data, function(i, palette){
 
 			var colors = palette.colors;
+
+			//reverse the order of the colors, because of the order people do blend palettes on CL. 
+			// colors.reverse();
+
 			var widths = palette.colorWidths;
 
 			for (var j = 0; j < colors.length; j++) {
@@ -100,19 +81,16 @@ $(function() {
 
 	function randomizePalettes() {
 		// create a random number between 1 and the maximum number of palettes. This will be used to determine the number of palettes shown on this request.
-		var currentRandomNumber = getRandomInteger(1,maxPalettes);
+		var currentRandomNumber = getRandomInteger(minPalettes,maxPalettes);
 
 		// determine the maximum offset we can have based on the total number of palettes the lover has made. This will be used to set a random number for the offset on this request.
 		var maxOffset = Math.floor(loverMaxPalettes / currentRandomNumber) - 1;
 
 		// make the API request
 		getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&lover='+lover+'&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
+		// getPalettes('http://www.colourlovers.com/api/palettes/new/?format=json&keywords=multiblend&showPaletteWidths=1&resultOffset='+getRandomInteger(0,maxOffset)+'&numResults='+currentRandomNumber+'&jsonCallback=?', currentRandomNumber);
+
 	}
-
-	// randomize the palettes per the duration
-	window.setInterval(randomizePalettes, duration);
-
-
 
 
 
@@ -150,5 +128,24 @@ $(function() {
 			}  
 	  }  
 	} 
+
+
+
+	function init() {
+		// build placeholders for the max amount of colors possible
+		for (var i = 0; i<maxPalettes*5; i++) {
+			$paletteContainer.append('<div class="color"></div>');
+		};
+		$colorHolders = $paletteContainer.find('div.color');
+		
+		//getLoverData(lover);
+		buildInfoWindow();
+		randomizePalettes();
+	};
+	init();
+
+	// keep bringing in random the palettes per the duration
+	window.setInterval(randomizePalettes, duration);
+
 
 });

@@ -60,7 +60,7 @@ $(function() {
 			var colors = palette.colors;
 
 			//reverse the order of the colors, because of the order people do blend palettes on CL.
-			// colors.reverse();
+			 colors.reverse();
 
 			var widths = palette.colorWidths;
 

@@ -1,4 +1,4 @@
-$(function() {   
+$(function() {
 
 	// Safari looks terrible because of sub-pixel rounding problems.  Apologize for them.
 	if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
@@ -18,11 +18,11 @@ $(function() {
 		lover = loverHash;
 	}
 
-	$(window).on('hashchange',function(){ 
-	    lover = window.location.hash.substr(1);
-	    getLoverData(lover);
-	    buildInfoWindow();
-	});	
+	$(window).on('hashchange',function(){
+		lover = window.location.hash.substr(1);
+		getLoverData(lover);
+		buildInfoWindow();
+	});
 
 	// call the CL API, sets the loverMaxPalettes variable.
 	function getLoverData(lover) {
@@ -49,7 +49,7 @@ $(function() {
 
 	function drawPalettes(data, currentRandomNumber) {
 		// a little counter
-		var currently = 0; 
+		var currently = 0;
 		$colorHolders.css('width', '0');
 
 		// reverse the order of the results object, because of the order people do blend palettes on CL.
@@ -59,7 +59,7 @@ $(function() {
 
 			var colors = palette.colors;
 
-			//reverse the order of the colors, because of the order people do blend palettes on CL. 
+			//reverse the order of the colors, because of the order people do blend palettes on CL.
 			// colors.reverse();
 
 			var widths = palette.colorWidths;
@@ -70,7 +70,7 @@ $(function() {
 					'width': widths[j] * (100/currentRandomNumber)+'%'
 				});
 				currently++;
-			};
+			}
 
 		});
 	}
@@ -106,42 +106,42 @@ $(function() {
 	});
 
 	function toggleFullScreen() {
-		if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-		 	(!document.mozFullScreen && !document.webkitIsFullScreen)) {
-			if (document.documentElement.requestFullScreen) {  
-				document.documentElement.requestFullScreen();  
-			} else if (document.documentElement.mozRequestFullScreen) {  
-				document.documentElement.mozRequestFullScreen();  
-			} else if (document.documentElement.webkitRequestFullScreen) {  
-				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-			}  
-	}	else {  
-			if (document.cancelFullScreen) {  
-				document.cancelFullScreen();  
-			} else if (document.mozCancelFullScreen) {  
-				document.mozCancelFullScreen();  
-			} else if (document.webkitCancelFullScreen) {  
-				document.webkitCancelFullScreen();  
-			}  
-	  }  
-	} 
+		if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+			(!document.mozFullScreen && !document.webkitIsFullScreen)) {
+			if (document.documentElement.requestFullScreen) {
+				document.documentElement.requestFullScreen();
+			} else if (document.documentElement.mozRequestFullScreen) {
+				document.documentElement.mozRequestFullScreen();
+			} else if (document.documentElement.webkitRequestFullScreen) {
+				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+			}
+	}	else {
+			if (document.cancelFullScreen) {
+				document.cancelFullScreen();
+			} else if (document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if (document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+			}
+		}
+	}
 
 
 	function init() {
 		// build placeholders for the max amount of colors possible
 		for (var i = 0; i<maxPalettes*5; i++) {
 			$paletteContainer.append('<div class="color"></div>');
-		};
+		}
 		$colorHolders = $paletteContainer.find('div.color');
-		
+
 
 		getLoverData(lover);
 		buildInfoWindow();
 		randomizePalettes();
-	};
+	}
 	init();
 
   // keep bringing in random the palettes per the duration
-  window.setInterval(randomizePalettes, duration);	
+  window.setInterval(randomizePalettes, duration);
 
 });

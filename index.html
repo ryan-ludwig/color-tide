@@ -30,8 +30,8 @@
 			height: 100%;
 
 			-moz-transition: all 4s ease-in-out;
-			-webkit-transition: all 4s ease-in-out;	
-			transition: all 4s ease-in-out;			
+			-webkit-transition: all 4s ease-in-out;
+			transition: all 4s ease-in-out;
 		}
 
 		.color {
@@ -58,12 +58,12 @@
 		}
 
 		#info-link {
-			display: block;			
+			display: block;
 			margin: 5px;
 			width: 15px;
 			height: 15px;
 			text-align: center;
-			text-decoration: none;			
+			text-decoration: none;
 			font-size: 12px;
 			font-style: italic;
 			color: #000;
@@ -90,6 +90,23 @@
 			color: #fff;
 		}
 
+		#notification {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: #FFF;
+			color: #000;
+			width: 100%;
+			height: auto;
+			font-family: sans-serif;
+		}
+
+		#notification p {
+			padding: 1em 2em;
+			margin: 0;
+			line-height: 1.5em;
+		}
+
 		h1 {
 			font-weight: 100;
 		}
@@ -97,6 +114,7 @@
 </head>
 
 <body>
+	<div id="notification"></div>
 	<div id="palette_container"></div>
 	<div id="config">
 		<a href="https://github.com/ryan-ludwig/color-tide" title="information" id="info-link">i</a>
@@ -114,7 +132,7 @@
 				<li><a href="#sinar">sinar</a></li>
 				<li><a href="#tvr">tvr</a></li>
 				<li><a href="#mravka">mravka</a></li>
-				<li><a href="#emilyr">emilyr</a></li>				
+				<li><a href="#emilyr">emilyr</a></li>
 			</ul>
 		</div>
 	</div>

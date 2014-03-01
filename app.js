@@ -6,23 +6,23 @@ $(function() {
 	}
 
 	var	$paletteContainer = $('#palette_container'),
-			$colorHolders,
-			minPalettes = 1,
+	$colorHolders,
+	minPalettes = 1,
 			maxPalettes = 16, // the max number of palettes on screen at once
 			duration = 3800,
 			lover = 'steph6',
 			loverMaxPalettes = 1000; // the max number of offsets available to query. This will update when you receive a result from getLoverData.
 			loverHash = window.location.hash.substr(1);
 
-	if (loverHash !== '') {
-		lover = loverHash;
-	}
+			if (loverHash !== '') {
+				lover = loverHash;
+			}
 
-	$(window).on('hashchange',function(){
-		lover = window.location.hash.substr(1);
-		getLoverData(lover);
-		buildInfoWindow();
-	});
+			$(window).on('hashchange',function(){
+				lover = window.location.hash.substr(1);
+				getLoverData(lover);
+				buildInfoWindow();
+			});
 
 	// call the CL API, sets the loverMaxPalettes variable.
 	function getLoverData(lover) {
@@ -48,6 +48,7 @@ $(function() {
 	}
 
 	function drawPalettes(data, currentRandomNumber) {
+
 		// a little counter
 		var currently = 0;
 		$colorHolders.css('width', '0');
@@ -60,7 +61,7 @@ $(function() {
 			var colors = palette.colors;
 
 			//reverse the order of the colors, because of the order people do blend palettes on CL.
-			 colors.reverse();
+			colors.reverse();
 
 			var widths = palette.colorWidths;
 
@@ -71,8 +72,14 @@ $(function() {
 				});
 				currently++;
 			}
-
 		});
+
+		// if we have results...
+		if (data.length > 0) {
+			$('#notification').html('');
+		} else {
+			$('#notification').html('<p>No Results :(<br>The user\'s palette licence may not allow reproduction.</p>');
+		}
 	}
 
 	function getRandomInteger (min, max) {
@@ -115,7 +122,7 @@ $(function() {
 			} else if (document.documentElement.webkitRequestFullScreen) {
 				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
 			}
-	}	else {
+		}	else {
 			if (document.cancelFullScreen) {
 				document.cancelFullScreen();
 			} else if (document.mozCancelFullScreen) {
